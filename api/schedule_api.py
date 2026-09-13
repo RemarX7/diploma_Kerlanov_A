@@ -1,6 +1,7 @@
 import os
 import requests
 import allure
+from requests import Response
 from config.settings import BASE_URL, LOGIN, PASSWORD
 
 
@@ -48,7 +49,7 @@ class ScheduleAPI:
     def create_personal_event(self, title: str, start_at: str, end_at: str,
                               color: str = "#FAC641",
                               background_color: str = "#FFF7C7",
-                              description: str = "Описание события") -> dict:
+                              description: str = "Описание события") -> Response:
         """Создание личного события."""
         url = f"{BASE_URL}/v2/schedule/createPersonal"
         payload = {
@@ -63,7 +64,7 @@ class ScheduleAPI:
         return response
 
     @allure.step("Получить расписание")
-    def get_events(self, from_date: str, till_date: str) -> dict:
+    def get_events(self, from_date: str, till_date: str) -> Response:
         """Получение событий за период."""
         url = f"{BASE_URL}/v2/schedule/events"
         payload = {
@@ -78,7 +79,7 @@ class ScheduleAPI:
     def update_personal_event(self, event_id: int, old_start_at: str,
                               new_start_at: str, new_end_at: str,
                               title: str = "Обновленное название",
-                              description: str = "Обновленное описание") -> dict:
+                              description: str = "Обновленное описание") -> Response:
         """Обновление личного события."""
         url = f"{BASE_URL}/v2/schedule/updatePersonal"
         payload = {
@@ -95,7 +96,7 @@ class ScheduleAPI:
         return response
 
     @allure.step("Удалить личное событие")
-    def delete_personal_event(self, event_id: int, start_at: str) -> dict:
+    def delete_personal_event(self, event_id: int, start_at: str) -> Response:
         """Удаление личного события."""
         url = f"{BASE_URL}/v2/schedule/removePersonal"
         payload = {
